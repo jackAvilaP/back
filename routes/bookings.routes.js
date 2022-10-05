@@ -17,6 +17,7 @@ bookingsRouter.use(protectSession);
 bookingsRouter.post('/',createBooking);
 
 bookingsRouter.patch('/:id', bookingExists, updateBooking);
+
 bookingsRouter.patch('/:id', bookingExists, deleteBooking);
 
 module.exports = { bookingsRouter };
