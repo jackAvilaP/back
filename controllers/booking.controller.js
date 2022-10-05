@@ -12,13 +12,13 @@ const { AppError } = require('../utils/appError.util');
 
 
 const createBooking = catchAsync(async( req, res, next ) => {
-    const { price, bookingTime:{ date, busyTime },  sceneryId, fildId, status } = req.body;
+    const { price, bookingDate, bookingTime,  sceneryId, fildId, status } = req.body;
 
     const { sessionUser } = req;
     
     const user = await User.findById(sessionUser._id);
     //Verificar bug
-    const bookingExist = await Booking.findOne({bookingTime:{ date, busyTime } });
+    const bookingExist = await Booking.findOne({bookingTime });
     
     const sceneryExist = await Scenery.findOne({ sceneryId });
 
@@ -35,7 +35,8 @@ const createBooking = catchAsync(async( req, res, next ) => {
     const newBooking = await Booking.create({
         userId:user,
         sceneryId,
-        bookingTime:{ date, busyTime },
+        bookingTime,
+        bookingDate,
         price,
         status,
     });
@@ -43,7 +44,6 @@ const createBooking = catchAsync(async( req, res, next ) => {
     res.status(201).json({
         status: 'success',
         newBooking,
-        user
       });
 });
 
