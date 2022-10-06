@@ -9,7 +9,6 @@ const { protectSession } = require('../middlewares/auth.middleware');
 const { bookingExists } = require('../middlewares/booking.middleware');
 
 
-
 const bookingsRouter = express.Router();
 
 bookingsRouter.use(protectSession);
